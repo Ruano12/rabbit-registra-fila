@@ -23,4 +23,11 @@ public class MessageDto implements Serializable {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	@Override
+	public String toString() {
+		return "MessageDto [message=" + message + "]";
+	}
+	
+	
 }

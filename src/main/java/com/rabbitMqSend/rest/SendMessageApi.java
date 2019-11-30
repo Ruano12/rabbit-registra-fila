@@ -3,6 +3,7 @@ package com.rabbitMqSend.rest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +31,11 @@ public class SendMessageApi {
 
 		MessageDto messageDto = new MessageDto(message);
 		
-		rabbitTemplate.convertAndSend(nomeFila, messageDto);
+		ObjectMapper obj = new ObjectMapper();
+
+		String json = obj.writeValueAsString(messageDto);
+		
+		rabbitTemplate.convertAndSend(nomeFila, json);
 		
 		return new ResponseEntity<String>("OK", HttpStatus.OK);
 	}
